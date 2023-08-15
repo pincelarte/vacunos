@@ -19,7 +19,7 @@ echo"---------------------------------------------" . PHP_EOL;
 
 
 
-menuInicio($campo, $arrayMadres, $d, $fechaNacimiento);
+menuInicio($campo, $arrayMadres, $d, $nacimiento);
 
 $campo = new Campo("Inza");
 echo PHP_EOL; 

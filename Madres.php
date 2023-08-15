@@ -48,7 +48,7 @@ class Madres{
 //Muestra la cantidad de madres en stock.
 //------------------------------------------------------------------------------------------------
 
-function mostrarCaravanas($campo, $arrayMadres){
+function mostrarCaravanas($campo, &$arrayMadres){
            
             //$sumaCaravanas = 0;
 
@@ -56,7 +56,7 @@ function mostrarCaravanas($campo, $arrayMadres){
             echo "No hay ninguna madre en stock \n";
          } else {
             foreach ($arrayMadres as $madre) {
-                echo "Madre nº: " . $madre->getCaravana() . " " . $madre->getRaza() ." ". $madre->getFicha() . PHP_EOL;
+                echo "Madre nº: " . $madre->getCaravana() ." Caravaneada el día: ". $madre->getNacimiento() . ", su raza es: " . $madre->getRaza() ." ficha: ". $madre->getFicha() . PHP_EOL;
                                 
             }
        
@@ -210,7 +210,7 @@ function buscarMadre($caravana, &$arrayMadres) {
     $encontrada = false;
     foreach ($arrayMadres as $madre) {
         if ($madre->getCaravana() == $caravana) {
-            echo "Caravana: " . $madre->getCaravana() . "colocada: ". $nacimiento . "\n";
+            echo "Caravana: " . $madre->getCaravana()." " . "colocada: ". $nacimiento->getNacimiento() . "\n";
             echo "Raza: " . $madre->getRaza() . "\n";
             echo "Ficha: " . $madre->getFicha() . "\n";
             
