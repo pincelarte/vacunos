@@ -1,22 +1,15 @@
 <?php
 $d=date('d/m/Y');
 
-function menuInicio($campo, $arrayMadres){
+function menuInicio($campo, &$arrayMadres){
     //global $arrayMadres;
     //global $arrayNovillos;
+   
+  //  $arrayMadres = [];
+var_dump ($arrayMadres);
     
     
-    
-    if ($campo === NULL) {
-        echo "Error: campo no debe ser nulo.";
-        return;
-    }
-
-  /*  if ($arrayNovillos === NULL) {
-        echo "Error: campo no debe ser nulo.";
-        return;
-    }*/
-
+   
     echo "Menu de Inicio" . PHP_EOL;
     echo "\n";
     echo "Establecimiento: " . $campo->getNombre() . PHP_EOL;
@@ -35,6 +28,8 @@ function menuInicio($campo, $arrayMadres){
 
     switch($opcion){
         case "0":
+            persistir('Madres.json', $arrayMadres);
+            grabar('Madres.json', $arrayMadres);
             echo "EL GESTOR A FINALIZADO.\n";
             exit();
             break;
@@ -64,5 +59,6 @@ function menuInicio($campo, $arrayMadres){
            
 
 }
+
 
 

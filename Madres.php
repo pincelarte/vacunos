@@ -1,20 +1,22 @@
 <?php
 
-
-$arrayMadres = array();
+$arrayMadres =[];
 $fechaNacimiento = null;
 $d = date('d/m/Y');
+//leer($arrayMadres);
+
+
+$arrayMadres = recuperar('Madres.json');
+var_dump($arrayMadres);
 
 
 class Madres{
 
-    private $caravana;
-    private $nacimiento;
-    private $raza;
-    private $ficha;
-    
-    
-  
+    public $caravana;
+    public $nacimiento;
+    public $raza;
+    public $ficha;
+
 
     public function __construct($caravana, $nacimiento, $raza, $ficha){
 
@@ -22,9 +24,7 @@ class Madres{
             $this->nacimiento = $nacimiento;
             $this->raza =$raza;
             $this->ficha = $ficha;
-        
     }
-
 
     public function getCaravana(){
         return $this->caravana;
@@ -42,17 +42,32 @@ class Madres{
         return $this->ficha;
     }
 
+    public function setCaravana($caravana){
+        $this->caravana = $caravana;
+    }
 
-}    
+    public function setNacimiento($nacimiento){
+        $this->nacimiento = $nacimiento;
+    }
 
-//Muestra la cantidad de madres en stock.
-//------------------------------------------------------------------------------------------------
+    public function setRaza($raza){
+        $this->raza = $raza;
+    }
 
-function mostrarCaravanas($campo, &$arrayMadres){
+    public function setFicha($ficha){
+        $this->ficha = $ficha;
+
+  }
+
+}
+
+$nombreArchivo = 'Madres.json';
+
+
+function mostrarCaravanas($campo, $arrayMadres){
+    
            
-            //$sumaCaravanas = 0;
-
-         if ( empty($arrayMadres)){
+            if ( empty($arrayMadres)){
             echo "No hay ninguna madre en stock \n";
          } else {
             foreach ($arrayMadres as $madre) {
@@ -87,7 +102,7 @@ function menuPosterior($campo, &$arrayMadres){
         break; 
     default:
         echo "tecla incorrecta, por favor ingresa n/s";
-        menuposterior($campo, $arrayMadres);    
+        menuPosterior($campo, $arrayMadres);    
         break;
 }          
 }
@@ -97,12 +112,9 @@ function menuPosterior($campo, &$arrayMadres){
 
 
 
-function agregarMadre( $campo, &$arrayMadres){
+function agregarMadre($campo, &$arrayMadres){
     
-
- 
-   
-
+    $continuar = '';
     do{
         
 
@@ -123,11 +135,7 @@ function agregarMadre( $campo, &$arrayMadres){
       echo "¡Error! La caravana ya existe. Por favor, ingrese una caravana diferente.\n";
       continue;
     }
-    //hasta acá verificación.
-
-
-
-
+   
     echo "La fecha de caravaneo de la madre nº $caravana es el:";
     date_default_timezone_set('America/Argentina/Buenos_Aires') . PHP_EOL;
     $nacimiento = date('d/m/Y H:i:s');
@@ -164,15 +172,17 @@ function agregarMadre( $campo, &$arrayMadres){
     echo "------------------------------" . PHP_EOL;
 
     $arrayMadres[] =new Madres($caravana, $nacimiento, $raza, $ficha);
+    
 
-     
-
+    grabar('Madres.json', $arrayMadres);
+   
+    //------------------
     echo "¿Desea agregar otra madre? (s/n) \n";
     $continuar = readline();
-    } while ($continuar=='s' || $continuar=='S');    
+    } while ($continuar =='s' || $continuar =='S');    
 
-
-     
+    
+     //----------------
     
 
     $ultimaMadre = end($arrayMadres);
@@ -183,8 +193,9 @@ function agregarMadre( $campo, &$arrayMadres){
     echo "Ficha: " . $ultimaMadre->getFicha() . "\n";
     echo "La madre fue cargada con éxito! \n";
     echo "La cantidad de madres en stock es: " . count($arrayMadres) . PHP_EOL;
-   
     
+    
+
     menuPosterior($campo, $arrayMadres);
 
 }
@@ -202,44 +213,41 @@ function eliminarMadre($caravana, &$arrayMadres) {
     }
 
     if (!$encontrada) {
-        echo "No se encontró ninguna madre con el número de caravana proporcionado.\n";
+        echo "**********************************************************************\n";
+        echo "No se encontró ninguna madre con el número de caravana $caravana.\n";
+        echo "Regresando al menu de las Madres\n";
+        echo "***********************************************************************\n";
     }
+   
+   
 }
 
 function buscarMadre($caravana, &$arrayMadres) {
     $encontrada = false;
     foreach ($arrayMadres as $madre) {
         if ($madre->getCaravana() == $caravana) {
-            echo "Caravana: " . $madre->getCaravana()." " . "colocada: ". $nacimiento->getNacimiento() . "\n";
-            echo "Raza: " . $madre->getRaza() . "\n";
-            echo "Ficha: " . $madre->getFicha() . "\n";
-            
+            echo "Caravana nº: " . $madre->getCaravana(). "\n";
+            echo "colocada el día: ". $madre->getNacimiento() . "\n";
+            echo "Su raza es: " . $madre->getRaza() . "\n";
+            echo "Su ficha de historial: " . $madre->getFicha() . "\n";
             $encontrada = true;
             break;
+            menuMadres($campo, $arrayMadres);
         }
     }
 
     if (!$encontrada) {
-        echo "No se encontró ninguna madre con el número de caravana proporcionado.\n";
+        echo "*********************************************************\n";
+        echo "No se encontró ninguna madre con el número º$caravana.\n";
+        echo "Volviendo al menú de las madres\n";
+        echo "**********************************************************\n";
+        menuMadres($campo, $arrayMadres);
     }
 }
 
-function menuMadres($campo, &$arrayMadres ){
+function menuMadres( $campo, &$arrayMadres ){
 
-    global $d;
     
-
-    if ($campo === NULL) {
-        echo "Error: campo = no debe ser nulo.";
-        return;
-    }
-
-    if ($arrayMadres === NULL) {
-        echo "Error: arrayMadre no debe ser nulo.";
-        return;
-    }
-
-
     echo "MENÚ MADRES \n";
     echo "---------------------\n";
     echo "0)- VOLVER AL MENU DE INICIO \n";
@@ -253,7 +261,7 @@ function menuMadres($campo, &$arrayMadres ){
     switch($opción){
         case "0":
             echo "Volviendo al menu inicial\n";
-            menuInicio($campo, $arrayMadres );
+            menuInicio($campo, $arrayMadres);
             break;
 
         case "1":
@@ -262,14 +270,15 @@ function menuMadres($campo, &$arrayMadres ){
            
         case "2":
             echo "MADRES". PHP_EOL;
-            agregarMadre( $campo, $arrayMadres);
+            agregarMadre($campo, $arrayMadres);
             break; 
           
         case "3":
             echo "¿QUE NÚMERO DE CARAVANA TIENE LA MADRE QUE DESEA ELIMINAR? \n";
             $caravana = readline();
+            PHP_EOL;
             eliminarMadre($caravana, $arrayMadres);
-            menuMadres($campo, $arrayMadres);    
+            menuMadres($arrayMadres);
             break; 
         case "4":
             echo "Ingrese la caravana de la madre que desea ver\n";
@@ -280,13 +289,43 @@ function menuMadres($campo, &$arrayMadres ){
         default:
         echo "Opción inválida, por favor seleccione una de las opciones mostradas \n";
         echo "_________________________________" .PHP_EOL;
-        menuMadres($campo, $arrayMadres);
+        menuMadres($arrayMadres);
         break;    
     }
-
-
 }
 
+function grabar($nombreArchivo, $arrayMadres) {
+    $datos = json_encode($arrayMadres);
+    file_put_contents($nombreArchivo, $datos);
+}
 
+function persistir($nombreArchivo, $arrayMadres){
+    print_r($arrayMadres);
+    $datos = json_encode($arrayMadres);
+    var_dump($datos);
+    file_put_contents($nombreArchivo, $datos);
+    return $datos;
+}
 
+function setJSON($datos) {
+    $jsonDatos = json_decode($datos);
 
+    var_dump ($datos);
+}
+
+function recuperar($nombreArchivo) {
+    $datos = file_get_contents($nombreArchivo);
+    $arrayMadres = json_decode($datos);
+
+    $madres = [];
+    foreach ($arrayMadres as $madre) {
+        $Madre = new Madres($madre->caravana, $madre->nacimiento, $madre->raza, $madre->ficha);
+        $madres[] = $Madre;
+    }
+    return $madres;
+}
+
+function leer($nombreArchivo) {
+    $datos = file_get_contents($nombreArchivo);
+    setJSON($datos);
+}
