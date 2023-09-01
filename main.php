@@ -3,7 +3,6 @@ require_once "Madres.php";
 require_once "Campo.php";
 require_once "menu.php";
 require_once "Novillos.php";
-require_once "Vaquillona.php";
 require_once "leer.php";
 
 
@@ -21,71 +20,49 @@ echo"---------------------------------------------" . PHP_EOL;
 recuperar($nombreArchivo);
 //print_r($datos);
 
-menuInicio($campo, $arrayMadres);
+menuInicio($campo, $arrayVacunos);
 
 $campo = new Campo("Inza");
 echo PHP_EOL; 
 echo  "Gestionando el ganado " . $campo->getNombre();
 
 
-//--------persistencia--------
+//-------------Persistencia-------------------
 
+function grabar($nombreArchivo, $arrayVacunos) {
+    $datos = json_encode($arrayVacunos);
+    file_put_contents($nombreArchivo, $datos);
+}
 
+function persistir($nombreArchivo, $arrayVacunos){
+    //print_r($arrayVacunos);
+    $datos = json_encode($arrayVacunos);
+    //var_dump($datos);
+    file_put_contents($nombreArchivo, $datos);
+    return $datos;
+}
 
+function setJSON($datos) {
+    $jsonDatos = json_decode($datos);
 
-
-
-
-/*
+    //var_dump ($datos);
+}
 
 function recuperar($nombreArchivo) {
     $datos = file_get_contents($nombreArchivo);
-    return json_decode($datos);
-    foreach ($arrayMadres as $madre) {
-        $Madre = new Madre($caravana->caravana, $nacimiento->nacimiento, $raza->raza, $ficha->ficha);
-        $this->agregarPersistencia($nuevaMadre);
-    }
+    $arrayVacunos = json_decode($datos);
 
+    $madres = [];
+    foreach ($arrayVacunos as $madre) {
+        $Madre = new Madres($madre->indole, $madre->caravana, $madre->nacimiento, $madre->raza, $madre->ficha);
+        $madres[] = $Madre;
+    }
+    return $madres;
 }
 
-
-
-function recuperar($nombreArchivo) {
-    if (file_exists($nombreArchivo)) {
-        $datos = file_get_contents($nombreArchivo);
-        $arrayMadres = json_decode($datos);
-
-        if ($arrayMadres !== null) {
-            foreach ($arrayMadres as $madre) {
-                $caravana = $madre->caravana;
-                $nacimiento = $madre->nacimiento;
-                $raza = $madre->raza;
-                $ficha = $madre->ficha;
-    
-                $Madre = new Madres($caravana, $nacimiento, $raza, $ficha);
-                persistir($nombreArchivo, $Madre);
-            }
-        } else {
-            echo "Contenido JSON inválido en el archivo.";
-        }
-    } else {
-        echo "Archivo '$nombreArchivo' no encontrado.";
-    }
-}
-
-
-function recuperar($nombreArchivo) {
+function leer($nombreArchivo) {
     $datos = file_get_contents($nombreArchivo);
-    $arrayMadres = json_decode($datos);
-
-    foreach ($arrayMadres as $madre) {
-        $caravana = $madre->caravana;
-        $nacimiento = $madre->nacimiento;
-        $raza = $madre->raza;
-        $ficha = $madre->ficha;
-
-        $Madre = new Madres($caravana, $nacimiento, $raza, $ficha);
-        persistir($nombreArchivo, $Madre);
-    }
+    setJSON($datos);
 }
-*/
+
+//-----------------------------------------------------------------------------------------
