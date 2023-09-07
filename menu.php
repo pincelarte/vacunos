@@ -1,7 +1,7 @@
 <?php
 $d=date('d/m/Y');
 
-//***********Menu de Inicio*********************************
+//***********Menu de Inicio**********************************
 
 function menuInicio($campo, &$arrayVacunos){
     
