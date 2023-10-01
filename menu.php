@@ -10,10 +10,12 @@ function menuInicio($campo, &$arrayVacunos){
     echo "Establecimiento: " . $campo->getNombre() . PHP_EOL;
     echo "0)-SALIR DEL GESTOR". PHP_EOL;
     echo "1)-VACUNOS". PHP_EOL;
-    echo "2)-indefinido" . PHP_EOL;
-    echo "3)-indefinido" . PHP_EOL;
-    echo "4)-indefinido" . PHP_EOL;
-    echo "5)-TOTAL" . PHP_EOL;
+    echo "2)-MADRES" . PHP_EOL;
+    echo "3)-VAQUILLONAS" . PHP_EOL;
+    echo "4)-NOVILLOS" . PHP_EOL;
+    echo "5)-TERNERAS" . PHP_EOL;
+    echo "6)-TERNEROS" . PHP_EOL;
+    echo "7)-TOROS" . PHP_EOL;
 
     $opcion = readline();
 
@@ -26,27 +28,64 @@ function menuInicio($campo, &$arrayVacunos){
             break;
         case "1":
             echo "________________________". PHP_EOL;
-            menuMadres($campo, $arrayVacunos);
+            menuVacunos($campo, $arrayVacunos);
+            echo "________________________". PHP_EOL;
+            menuInicio($campo, $arrayVacunos);
             break;    
-       /* case "2":
-            echo "¿QUE NÚMERO DE CARAVANA TIENE LA MADRE QUE DESEA ELIMINAR? \n";
-            $eliminarCaravana = readline();
-            echo "LA MADRE NÚMERO $caravana FUÉ ELIMINADA CON ÉXITO \n";  
-            Madre($caravana, $arrayVacunos);
-            menuInicio($campo);    
-            break;    
+        case "2":
+            echo "________________________". PHP_EOL;
+            mostrarMadre($arrayVacunos);
+            menuInicio($campo, $arrayVacunos);
+            break; 
         case "3":
-            mostrarCaravanas( $campo, $arrayVacunos);
+            echo "________________________". PHP_EOL;
+            mostrarVaquillonas($arrayVacunos);
+            menuInicio($campo, $arrayVacunos);
             break;
         case "4":
-            agregarNovillo($arrayNovillo);
-            break;    
+            echo "________________________". PHP_EOL;
+            mostrarNovillos($arrayVacunos);
+            menuInicio($campo, $arrayVacunos);
+            break;
+        case "5":
+            echo "________________________". PHP_EOL;
+            mostrarTerneras($arrayVacunos);
+            menuInicio($campo, $arrayVacunos);
+            break;
+        case "6":
+            echo "________________________". PHP_EOL;
+            mostrarTerneros($arrayVacunos);
+            menuInicio($campo, $arrayVacunos);
+            break;
         case "7":
-            agregarVaquillona($arrayVaquillona);
-            break;    */
+            echo "________________________". PHP_EOL;
+            mostrarToros($arrayVacunos);
+            menuInicio($campo, $arrayVacunos);
+            break;                                        
     }
 
 }
-//***************************Menu de clase********************************* */
+
+function menuPosterior($campo, &$arrayVacunos){
+        
+    echo "\n";
+    echo "¿Desea agregar otro animal?". "\n"; 
+    echo "S/N" . "\n";
+
+    $opcion = readline();
+
+        switch($opcion){
+    case "s":
+        agregarMadre($campo, $arrayVacunos);
+        break;
+    case "n":
+        menuVacunos($campo, $arrayVacunos);
+        break; 
+    default:
+        echo "tecla incorrecta, por favor ingresa n/s";
+        menuPosterior($campo, $arrayVacunos);    
+        break;
+}          
+}
 
 
