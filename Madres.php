@@ -51,8 +51,6 @@ class Madres{
         return $this->ficha;
       }
 
-      
-
     public function setIndole(){
         $this->indole = $indole;
     }
@@ -73,9 +71,17 @@ class Madres{
     public function setFicha($ficha){
         $this->ficha = $ficha;
       }
-    
+      public function getEdad(){
+        $fechaNacimiento = date_create($this->nacimiento);
+        $fechaActual = date_create(date('d/m/Y H:i:s'));
+        $intervalo = date_diff($fechaNacimiento, $fechaActual);
 
+        $edad = $intervalo->format('%d días %m meses %y años');
+
+        return $edad;
+    }
 }
+ 
 
 $nombreArchivo = 'Madres.json';
 
@@ -96,10 +102,6 @@ function mostrarCaravanas($campo, $arrayVacunos){
     
     menuVacunos($campo, $arrayVacunos);
     }
-
-
-
-
 
 function eliminarVacuno($caravana, &$arrayVacunos) {
     $encontrada = false;
@@ -135,6 +137,7 @@ function buscarVacuno($caravana, &$arrayVacunos) {
             echo "colocada el día: ". $madre->getNacimiento() . "\n";
             echo "Su raza es: " . $madre->getRaza() . "\n";
             echo "Su ficha de historial: " . $madre->getFicha() . "\n";
+            echo "Edad: " . $madre->getEdad() . "\n";
             $encontrada = true;
             menuVacunos($campo, $arrayVacunos);
             break;
@@ -206,8 +209,20 @@ function menuVacunos( $campo,  &$arrayVacunos ){
         break;    
     }
 }
+/*function getEdadEnMinutos(){
+    $fechaNacimiento = date_create($this->nacimiento);
+    $fechaActual = date_create(date('d/m/Y H:i:s'));
+    $intervalo = date_diff($fechaNacimiento, $fechaActual);
 
+    $edadEnMinutos = $intervalo->y * 365.25 * 24 * 60      // años a minutos
+                   + $intervalo->m * 30 * 24 * 60          // meses a minutos
+                   + $intervalo->d * 24 * 60               // días a minutos
+                   + $intervalo->h * 60                    // horas a minutos
+                   + $intervalo->i;                        // minutos
 
+    return $edadEnMinutos;
+}
+*/
 
 //para consultar errores
 

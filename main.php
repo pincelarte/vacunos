@@ -2,7 +2,6 @@
 require_once "Madres.php";
 require_once "Campo.php";
 require_once "menu.php";
-//require_once "Novillos.php";
 require_once "leer.php";
 
 
@@ -332,8 +331,6 @@ function agregarMadre($campo, &$arrayVacunos){
     echo "El animal fue cargada con éxito! \n";
     echo "La cantidad de vacunos en stock es: " . count($arrayVacunos) . PHP_EOL;
     
-    
-
     menuPosterior($campo, $arrayVacunos);
 
 }
