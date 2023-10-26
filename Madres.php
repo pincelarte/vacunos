@@ -159,6 +159,7 @@ function menuVacunos( $campo,  &$arrayVacunos ){
     echo "2)- AGREGAR VACUNO \n";
     echo "3)- QUITAR VACUNO \n";
     echo "4)- BUSCAR VACUNO \n";
+    echo "5)- MODIFICAR FICHA\n";
 
     $opción = readline();
 
@@ -189,11 +190,16 @@ function menuVacunos( $campo,  &$arrayVacunos ){
             PHP_EOL;
             break; 
         case "4":
-            echo "INGRESE LA CARAVANA DEL VACUNO QUE DESEA VER\n";
+            echo "INGRESE LA CARAVANA DEL VACUNO QUE DESEA VER.\n";
             $caravana =readline();
             buscarVacuno($caravana, $arrayVacunos);
             PHP_EOL;
-            break;    
+            break;
+        case "5":
+            echo "¿QUE FICHA DESEA MODIFICAR? INGRESE LA CARAVANA.\n";    
+            $caravana = readline() . PHP_EOL;
+            modificarFicha($caravana, $arrayVacunos) . PHP_EOL;
+            break;
 
         default:
         echo "Opción inválida, por favor seleccione una de las opciones mostradas \n";
@@ -201,5 +207,24 @@ function menuVacunos( $campo,  &$arrayVacunos ){
         menuVacunos($campo, $arrayVacunos);
         PHP_EOL;
         break;    
+    }
+}
+
+
+function modificarFicha($caravana, &$arrayVacunos) {
+    $encontrada = false;
+    foreach ($arrayVacunos as $madre) {
+        if ($madre->getCaravana() == $caravana) {
+            echo "Ingrese el nuevo texto para la ficha del vacuno con caravana nº $caravana: \n";
+            $nuevoTexto = readline();
+            $madre->setFicha($nuevoTexto);
+            $encontrada = true;
+            echo "La ficha del vacuno con caravana nº $caravana ha sido actualizada a $nuevoTexto.\n";
+            break;
+        }
+    }
+
+    if (!$encontrada) {
+        echo "No se encontró ningún vacuno con el número de caravana $caravana.\n";
     }
 }
