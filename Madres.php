@@ -1,7 +1,7 @@
 <?php
 
 $arrayVacunos =[];
-$fechaNacimiento = null;
+//$fechaNacimiento = null;
 $d = date('d/m/Y');
 //leer($arrayVacunos);
 
@@ -17,18 +17,15 @@ class Madres{
     public $nacimiento;
     public $raza;
     public $ficha;
-    
-    
+    public $edad;
 
-
-    public function __construct($indole, $caravana, $nacimiento, $raza, $ficha){
+    public function __construct($indole, $caravana, $nacimiento, $raza, $ficha ){
 
             $this->indole = $indole;
             $this->caravana = $caravana;
             $this->nacimiento = $nacimiento;
             $this->raza =$raza;
             $this->ficha = $ficha;
-            
     }
 
     public function getIndole(){
@@ -71,17 +68,34 @@ class Madres{
     public function setFicha($ficha){
         $this->ficha = $ficha;
       }
-      public function getEdad(){
-        $fechaNacimiento = date_create($this->nacimiento);
-        $fechaActual = date_create(date('d/m/Y H:i:s'));
-        $intervalo = date_diff($fechaNacimiento, $fechaActual);
+    
 
-        $edad = $intervalo->format('%d días %m meses %y años');
+/*
+    public function getEdad(){
+       $nacimiento = date_create_from_format('d/m/Y',$this->nacimiento);
+       $fechaActual = date_create(date('d/m/Y H:i:s'));
+       $intervalo = date_diff($nacimiento, $fechaActual);
+       $edad = $intervalo->format('%d días %m meses %y años');
+      
+       return $edad;
+    }     */
 
+    public function getEdad(){
+        $nacimiento = DateTime::createFromFormat('d/m/Y H:i:s', $this->nacimiento);
+        
+        if ($nacimiento === false) {
+            throw new Exception("Fecha de nacimiento inválida: {$this->nacimiento}");
+        }
+     
+        $fechaActual = new DateTime();
+     
+        $intervalo = $nacimiento->diff($fechaActual);
+     
+        $edad = $intervalo->y." años, ".$intervalo->m." meses, ".$intervalo->d." días";
+       
         return $edad;
-    }
+     }
 }
- 
 
 $nombreArchivo = 'Madres.json';
 
@@ -209,21 +223,3 @@ function menuVacunos( $campo,  &$arrayVacunos ){
         break;    
     }
 }
-/*function getEdadEnMinutos(){
-    $fechaNacimiento = date_create($this->nacimiento);
-    $fechaActual = date_create(date('d/m/Y H:i:s'));
-    $intervalo = date_diff($fechaNacimiento, $fechaActual);
-
-    $edadEnMinutos = $intervalo->y * 365.25 * 24 * 60      // años a minutos
-                   + $intervalo->m * 30 * 24 * 60          // meses a minutos
-                   + $intervalo->d * 24 * 60               // días a minutos
-                   + $intervalo->h * 60                    // horas a minutos
-                   + $intervalo->i;                        // minutos
-
-    return $edadEnMinutos;
-}
-*/
-
-//para consultar errores
-
-//print_r(debug_backtrace()); die(__file__.':'.__LINE__);

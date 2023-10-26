@@ -2,7 +2,7 @@
 require_once "Madres.php";
 require_once "Campo.php";
 require_once "menu.php";
-require_once "leer.php";
+//require_once "leer.php";
 
 
 $d = date('d/m/Y');
@@ -304,7 +304,7 @@ function agregarMadre($campo, &$arrayVacunos){
 
     echo "------------------------------" . PHP_EOL;
 
-    $arrayVacunos[] =new Madres($indole, $caravana, $nacimiento, $raza, $ficha);
+    $arrayVacunos[] =new Madres($indole, $caravana, $nacimiento, $raza, $ficha, $edad);
     
 
     grabar('Madres.json', $arrayVacunos);
