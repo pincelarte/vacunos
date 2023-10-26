@@ -1,14 +1,8 @@
 <?php
 
 $arrayVacunos =[];
-//$fechaNacimiento = null;
 $d = date('d/m/Y');
-//leer($arrayVacunos);
-
-
 $arrayVacunos = recuperar('Madres.json');
-//var_dump($arrayVacunos);
-
 
 class Madres{
 
@@ -34,19 +28,19 @@ class Madres{
 
     public function getCaravana(){
         return $this->caravana;
-      }
+    }
 
     public function getNacimiento(){
         return $this->nacimiento;
-      }
+    }
 
     public function getRaza(){
         return $this->raza;
-      }
+    }
 
     public function getFicha(){
         return $this->ficha;
-      }
+    }
 
     public function setIndole(){
         $this->indole = $indole;
@@ -68,17 +62,11 @@ class Madres{
     public function setFicha($ficha){
         $this->ficha = $ficha;
       }
-    
 
-/*
-    public function getEdad(){
-       $nacimiento = date_create_from_format('d/m/Y',$this->nacimiento);
-       $fechaActual = date_create(date('d/m/Y H:i:s'));
-       $intervalo = date_diff($nacimiento, $fechaActual);
-       $edad = $intervalo->format('%d días %m meses %y años');
-      
-       return $edad;
-    }     */
+    public function setEdad($edad){
+        $this->edad = $edad;
+    }  
+
 
     public function getEdad(){
         $nacimiento = DateTime::createFromFormat('d/m/Y H:i:s', $this->nacimiento);
@@ -86,13 +74,9 @@ class Madres{
         if ($nacimiento === false) {
             throw new Exception("Fecha de nacimiento inválida: {$this->nacimiento}");
         }
-     
         $fechaActual = new DateTime();
-     
         $intervalo = $nacimiento->diff($fechaActual);
-     
         $edad = $intervalo->y." años, ".$intervalo->m." meses, ".$intervalo->d." días";
-       
         return $edad;
      }
 }
@@ -101,21 +85,19 @@ $nombreArchivo = 'Madres.json';
 
 
 function mostrarCaravanas($campo, $arrayVacunos){
-    
-           
-            if ( empty($arrayVacunos)){
-            echo "No hay ningun vacuno en stock \n";
-         } else {
-            foreach ($arrayVacunos as $madre) {
-                echo "Vacuno: " . $madre->getIndole() . PHP_EOL . "Caravana nº: " . $madre->getCaravana() ."/// Se asienta el día: ". $madre->getNacimiento() ."\n"  . "Raza: " . $madre->getRaza() ."Ficha: ". $madre->getFicha() . PHP_EOL;
-                PHP_EOL;                 
-            }
+          
+    if ( empty($arrayVacunos)){
+        echo "No hay ningun vacuno en stock \n";
+        } else {
+        foreach ($arrayVacunos as $madre) {
+        echo "Vacuno: " . $madre->getIndole() . PHP_EOL . "Caravana nº: " . $madre->getCaravana() ."/// Se asienta el día: ". $madre->getNacimiento() ."\n"  . "Raza: " . $madre->getRaza() ."Ficha: ". $madre->getFicha() . PHP_EOL;
+        PHP_EOL;                 
+        }
        
-     } 
+    } 
     echo "El total de vacunos en el establecimiento es de: " . count ($arrayVacunos) . "\n";
-    
     menuVacunos($campo, $arrayVacunos);
-    }
+}
 
 function eliminarVacuno($caravana, &$arrayVacunos) {
     $encontrada = false;
@@ -135,9 +117,7 @@ function eliminarVacuno($caravana, &$arrayVacunos) {
         echo "No se encontró ningún vacuno con el número de caravana $caravana.\n";
         echo "Regresando al menu Vacunos\n";
         echo "***********************************************************************\n";
-    }
-   
-   
+    }   
 }
 
 function buscarVacuno($caravana, &$arrayVacunos) {

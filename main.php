@@ -2,13 +2,9 @@
 require_once "Madres.php";
 require_once "Campo.php";
 require_once "menu.php";
-//require_once "leer.php";
-
 
 $d = date('d/m/Y');
-
 echo "Hoy es día: $d";
-
 
 $campo = new Campo("Inza");
 echo PHP_EOL; 
@@ -17,8 +13,6 @@ echo"---------------------------------------------" . PHP_EOL;
 
 
 recuperar($nombreArchivo);
-//print_r($datos);
-
 menuInicio($campo, $arrayVacunos);
 
 $campo = new Campo("Inza");
@@ -229,9 +223,7 @@ function agregarMadre($campo, &$arrayVacunos){
 
 
     $caravana = readline();
-   
-
-    //verificación
+       
     $caravanaExistente = false;
     foreach ($arrayVacunos as $madre) {
       if ($madre->getCaravana() == $caravana) {
@@ -295,16 +287,16 @@ function agregarMadre($campo, &$arrayVacunos){
     }else if($indole == "Novillo"||$indole =="Ternero"||$indole =="Toro"){
         echo "La raza del $indole es: " . ($raza) .  PHP_EOL;}
     
-        if ($indole =="Madre" ||$indole =="Vaquillona" || $indole =="Ternera"){ 
-            echo "Desea guardar datos adicionales sobre la $indole nº $caravana? \n";
-        }else if($indole == "Novillo"||$indole =="Ternero"||$indole =="Toro"){
-            echo "Desea guardar datos adicionales sobre el $indole nº $caravana? \n";}
+    if ($indole =="Madre" ||$indole =="Vaquillona" || $indole =="Ternera"){ 
+        echo "Desea guardar datos adicionales sobre la $indole nº $caravana? \n";
+    }else if($indole == "Novillo"||$indole =="Ternero"||$indole =="Toro"){
+        echo "Desea guardar datos adicionales sobre el $indole nº $caravana? \n";}
     
     $ficha = readline();
 
     echo "------------------------------" . PHP_EOL;
 
-    $arrayVacunos[] =new Madres($indole, $caravana, $nacimiento, $raza, $ficha, $edad);
+    $arrayVacunos[] =new Madres($indole, $caravana, $nacimiento, $raza, $ficha);
     
 
     grabar('Madres.json', $arrayVacunos);
