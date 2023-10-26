@@ -42,7 +42,7 @@ class Madres{
         return $this->ficha;
     }
 
-    public function setIndole(){
+    public function setIndole($indole){
         $this->indole = $indole;
     }
 
