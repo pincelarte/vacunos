@@ -160,6 +160,7 @@ function menuVacunos( $campo,  &$arrayVacunos ){
     echo "3)- QUITAR VACUNO \n";
     echo "4)- BUSCAR VACUNO \n";
     echo "5)- MODIFICAR FICHA\n";
+   // echo "6)- MODIFICAR EDAD\n";
 
     $opción = readline();
 
@@ -200,6 +201,12 @@ function menuVacunos( $campo,  &$arrayVacunos ){
             $caravana = readline() . PHP_EOL;
             modificarFicha($caravana, $arrayVacunos) . PHP_EOL;
             break;
+        /*case "6":
+            echo "INGRESE LA CARAVANA DEL VACUNO QUE DESEA MODIFICAR SU EDAD\n";
+            $caravana = readline();
+            modificarEdad($caravana, $arrayVacunos);
+            PHP_EOL;
+            break;   */ 
 
         default:
         echo "Opción inválida, por favor seleccione una de las opciones mostradas \n";
@@ -225,6 +232,24 @@ function modificarFicha($caravana, &$arrayVacunos) {
     }
 
     if (!$encontrada) {
-        echo "No se encontró ningún vacuno con el número de caravana $caravana.\n";
+        echo "No se encontró ningún vacuno con el Nº $caravana de caravana.\n";
     }
 }
+
+/*function modificarEdad($caravana, &$arrayVacunos) {
+    $encontrada = false;
+    foreach ($arrayVacunos as $madre) {
+        if ($madre->getCaravana() == $caravana) {
+            echo "Ingrese la nueva edad del vacuno con caravana nº $caravana: \n";
+            $nuevaEdad = readline();
+            $madre->setEdad($nuevaEdad);
+            $encontrada = true;
+            echo "La edad del vacuno con caravana nº $caravana ha sido actualizada a $nuevaEdad.\n";
+            break;
+        }
+    }
+
+    if (!$encontrada) {
+        echo "No se encontró ningún vacuno con el Nº $caravana de caravana.\n";
+    }
+}*/
