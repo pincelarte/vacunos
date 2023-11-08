@@ -160,7 +160,7 @@ function menuVacunos( $campo,  &$arrayVacunos ){
     echo "3)- QUITAR VACUNO \n";
     echo "4)- BUSCAR VACUNO \n";
     echo "5)- MODIFICAR FICHA\n";
-   // echo "6)- MODIFICAR EDAD\n";
+   
 
     $opción = readline();
 
@@ -201,12 +201,7 @@ function menuVacunos( $campo,  &$arrayVacunos ){
             $caravana = readline() . PHP_EOL;
             modificarFicha($caravana, $arrayVacunos) . PHP_EOL;
             break;
-        /*case "6":
-            echo "INGRESE LA CARAVANA DEL VACUNO QUE DESEA MODIFICAR SU EDAD\n";
-            $caravana = readline();
-            modificarEdad($caravana, $arrayVacunos);
-            PHP_EOL;
-            break;   */ 
+      
 
         default:
         echo "Opción inválida, por favor seleccione una de las opciones mostradas \n";
