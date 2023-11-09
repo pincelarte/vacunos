@@ -1,10 +1,11 @@
 <?php
 
-$arrayVacunos =[];
+$arrayVacunos = [];
 $d = date('d/m/Y');
 $arrayVacunos = recuperar('Madres.json');
 
-class Madres{
+class Madres
+{
 
     public $indole;
     public $caravana;
@@ -13,93 +14,107 @@ class Madres{
     public $ficha;
     public $edad;
 
-    public function __construct($indole, $caravana, $nacimiento, $raza, $ficha ){
+    public function __construct($indole, $caravana, $nacimiento, $raza, $ficha)
+    {
 
-            $this->indole = $indole;
-            $this->caravana = $caravana;
-            $this->nacimiento = $nacimiento;
-            $this->raza =$raza;
-            $this->ficha = $ficha;
+        $this->indole = $indole;
+        $this->caravana = $caravana;
+        $this->nacimiento = $nacimiento;
+        $this->raza = $raza;
+        $this->ficha = $ficha;
     }
 
-    public function getIndole(){
+    public function getIndole()
+    {
         return $this->indole;
     }
 
-    public function getCaravana(){
+    public function getCaravana()
+    {
         return $this->caravana;
     }
 
-    public function getNacimiento(){
+    public function getNacimiento()
+    {
         return $this->nacimiento;
     }
 
-    public function getRaza(){
+    public function getRaza()
+    {
         return $this->raza;
     }
 
-    public function getFicha(){
+    public function getFicha()
+    {
         return $this->ficha;
     }
 
-    public function setIndole($indole){
+    public function setIndole($indole)
+    {
         $this->indole = $indole;
     }
 
 
-    public function setCaravana($caravana){
+    public function setCaravana($caravana)
+    {
         $this->caravana = $caravana;
-      }
+    }
 
-    public function setNacimiento($nacimiento){
+    public function setNacimiento($nacimiento)
+    {
         $this->nacimiento = $nacimiento;
-      }
+    }
 
-    public function setRaza($raza){
+    public function setRaza($raza)
+    {
         $this->raza = $raza;
-      }
+    }
 
-    public function setFicha($ficha){
+    public function setFicha($ficha)
+    {
         $this->ficha = $ficha;
-      }
+    }
 
-    public function setEdad($edad){
+    public function setEdad($edad)
+    {
         $this->edad = $edad;
-    }  
+    }
 
 
-    public function getEdad(){
+    public function getEdad()
+    {
         $nacimiento = DateTime::createFromFormat('d/m/Y H:i:s', $this->nacimiento);
-        
+
         if ($nacimiento === false) {
             throw new Exception("Fecha de nacimiento inválida: {$this->nacimiento}");
         }
         $fechaActual = new DateTime();
         $intervalo = $nacimiento->diff($fechaActual);
-        $edad = $intervalo->y." años, ".$intervalo->m." meses, ".$intervalo->d." días";
+        $edad = $intervalo->y . " años, " . $intervalo->m . " meses, " . $intervalo->d . " días";
         return $edad;
-     }
+    }
 }
 
 $nombreArchivo = 'Madres.json';
 
 
-function mostrarCaravanas($campo, $arrayVacunos){
-          
-    if ( empty($arrayVacunos)){
+function mostrarCaravanas($campo, $arrayVacunos)
+{
+
+    if (empty($arrayVacunos)) {
         echo "No hay ningun vacuno en stock \n";
-        } else {
+    } else {
         foreach ($arrayVacunos as $madre) {
-        echo "Vacuno: " . $madre->getIndole() . PHP_EOL . "Caravana nº: " . $madre->getCaravana() ."/// Se asienta el día: ". $madre->getNacimiento() ."\n"  . "Raza: " . $madre->getRaza() ."Ficha: ". $madre->getFicha() . PHP_EOL;
-        PHP_EOL;                 
+            echo "Vacuno: " . $madre->getIndole() . PHP_EOL . "Caravana nº: " . $madre->getCaravana() . "/// Se asienta el día: " . $madre->getNacimiento() . "\n"  . "Raza: " . $madre->getRaza() . "Ficha: " . $madre->getFicha() . PHP_EOL;
+            PHP_EOL;
         }
-       
-    } 
-    echo "El total de vacunos en el establecimiento es de: " . count ($arrayVacunos) . "\n";
+    }
+    echo "El total de vacunos en el establecimiento es de: " . count($arrayVacunos) . "\n";
     menuVacunos($campo, $arrayVacunos);
 }
 
-function eliminarVacuno($caravana, &$arrayVacunos) {
+function eliminarVacuno($caravana, &$arrayVacunos)
+{
     $encontrada = false;
     foreach ($arrayVacunos as $i => $madre) {
         if ($madre->getCaravana() == $caravana) {
@@ -117,25 +132,25 @@ function eliminarVacuno($caravana, &$arrayVacunos) {
         echo "No se encontró ningún vacuno con el número de caravana $caravana.\n";
         echo "Regresando al menu Vacunos\n";
         echo "***********************************************************************\n";
-    }   
+    }
 }
 
-function buscarVacuno($caravana, &$arrayVacunos) {
-    globaL $campo;
+function buscarVacuno($caravana, &$arrayVacunos)
+{
+    global $campo;
     $encontrada = false;
     foreach ($arrayVacunos as $madre) {
         if ($madre->getCaravana() == $caravana) {
 
             echo "Clase: " . $madre->getIndole() . "\n";
             echo "Caravana nº: " . $madre->getCaravana() . "\n";
-            echo "colocada el día: ". $madre->getNacimiento() . "\n";
+            echo "colocada el día: " . $madre->getNacimiento() . "\n";
             echo "Su raza es: " . $madre->getRaza() . "\n";
             echo "Su ficha de historial: " . $madre->getFicha() . "\n";
             echo "Edad: " . $madre->getEdad() . "\n";
             $encontrada = true;
             menuVacunos($campo, $arrayVacunos);
             break;
-            
         }
     }
 
@@ -148,7 +163,8 @@ function buscarVacuno($caravana, &$arrayVacunos) {
     }
 }
 
-function menuVacunos( $campo,  &$arrayVacunos ){
+function menuVacunos($campo,  &$arrayVacunos)
+{
 
     echo "\n";
     echo "\n";
@@ -160,11 +176,11 @@ function menuVacunos( $campo,  &$arrayVacunos ){
     echo "3)- QUITAR VACUNO \n";
     echo "4)- BUSCAR VACUNO \n";
     echo "5)- MODIFICAR FICHA\n";
-   
+
 
     $opción = readline();
 
-    switch($opción){
+    switch ($opción) {
         case "0":
             echo "Volviendo al menu inicial\n";
             menuInicio($campo, $arrayVacunos);
@@ -175,13 +191,13 @@ function menuVacunos( $campo,  &$arrayVacunos ){
             mostrarCaravanas($campo, $arrayVacunos);
             PHP_EOL;
             break;
-           
+
         case "2":
-            echo "VACUNOS". PHP_EOL;
+            echo "VACUNOS" . PHP_EOL;
             agregarMadre($campo, $arrayVacunos);
             PHP_EOL;
-            break; 
-          
+            break;
+
         case "3":
             echo "¿QUE NÚMERO DE CARAVANA TIENE EL VACUNO QUE DESEA ELIMINAR? \n";
             $caravana = readline();
@@ -189,31 +205,32 @@ function menuVacunos( $campo,  &$arrayVacunos ){
             eliminarVacuno($caravana, $arrayVacunos);
             menuVacunos($campo, $arrayVacunos);
             PHP_EOL;
-            break; 
+            break;
         case "4":
             echo "INGRESE LA CARAVANA DEL VACUNO QUE DESEA VER.\n";
-            $caravana =readline();
+            $caravana = readline();
             buscarVacuno($caravana, $arrayVacunos);
             PHP_EOL;
             break;
         case "5":
-            echo "¿QUE FICHA DESEA MODIFICAR? INGRESE LA CARAVANA.\n";    
+            echo "¿QUE FICHA DESEA MODIFICAR? INGRESE LA CARAVANA.\n";
             $caravana = readline() . PHP_EOL;
             modificarFicha($caravana, $arrayVacunos) . PHP_EOL;
             break;
-      
+
 
         default:
-        echo "Opción inválida, por favor seleccione una de las opciones mostradas \n";
-        echo "_________________________________" .PHP_EOL;
-        menuVacunos($campo, $arrayVacunos);
-        PHP_EOL;
-        break;    
+            echo "Opción inválida, por favor seleccione una de las opciones mostradas \n";
+            echo "_________________________________" . PHP_EOL;
+            menuVacunos($campo, $arrayVacunos);
+            PHP_EOL;
+            break;
     }
 }
 
 
-function modificarFicha($caravana, &$arrayVacunos) {
+function modificarFicha($caravana, &$arrayVacunos)
+{
     $encontrada = false;
     foreach ($arrayVacunos as $madre) {
         if ($madre->getCaravana() == $caravana) {

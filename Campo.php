@@ -1,20 +1,22 @@
 <?php
 
-class Campo {
+class Campo
+{
 
     public $nombre;
-    
-    public function __construct($nombre){
+
+    public function __construct($nombre)
+    {
         $this->nombre = $nombre;
     }
 
-    public function getNombre() {
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setNombre($nombre){
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
-   
 }
-
