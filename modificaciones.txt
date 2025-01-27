@@ -1,0 +1,6 @@
+cargar por animal caravana, dia y peso.
+
+
+Cargar, borrar y modificar peso.
+
+Obtener historial de peso y la ganancia diaria.

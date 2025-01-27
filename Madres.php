@@ -13,6 +13,7 @@ class Madres
     public $raza;
     public $ficha;
     public $edad;
+    public $peso;
 
     public function __construct($indole, $caravana, $nacimiento, $raza, $ficha)
     {
@@ -93,6 +94,17 @@ class Madres
         $edad = $intervalo->y . " años, " . $intervalo->m . " meses, " . $intervalo->d . " días";
         return $edad;
     }
+
+    public function setPeso($peso)
+    {
+        $this->peso = $peso;
+    }
+
+    public function getPeso()
+    {
+        return $this->peso;
+    }
+
 }
 
 $nombreArchivo = 'Madres.json';
@@ -188,7 +200,7 @@ function menuVacunos($campo,  &$arrayVacunos)
             break;
 
         case "1":
-            mostrarCaravanas($campo, $arrayVacunos);
+            mostrarCaravanas($campo, $arrayVacunos) . PHP_EOL;
             PHP_EOL;
             break;
 
@@ -247,21 +259,3 @@ function modificarFicha($caravana, &$arrayVacunos)
         echo "No se encontró ningún vacuno con el Nº $caravana de caravana.\n";
     }
 }
-
-/*function modificarEdad($caravana, &$arrayVacunos) {
-    $encontrada = false;
-    foreach ($arrayVacunos as $madre) {
-        if ($madre->getCaravana() == $caravana) {
-            echo "Ingrese la nueva edad del vacuno con caravana nº $caravana: \n";
-            $nuevaEdad = readline();
-            $madre->setEdad($nuevaEdad);
-            $encontrada = true;
-            echo "La edad del vacuno con caravana nº $caravana ha sido actualizada a $nuevaEdad.\n";
-            break;
-        }
-    }
-
-    if (!$encontrada) {
-        echo "No se encontró ningún vacuno con el Nº $caravana de caravana.\n";
-    }
-}*/
