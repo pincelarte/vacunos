@@ -111,48 +111,4 @@ $nombreArchivo = 'Madres.json';
 
 
 
-function eliminarVacuno($caravana, &$arrayVacunos)
-{
-    $encontrada = false;
-    foreach ($arrayVacunos as $i => $madre) {
-        if ($madre->getCaravana() == $caravana) {
-            unset($arrayVacunos[$i]);
-            $arrayVacunos = array_values($arrayVacunos);
-            $encontrada = true;
-            echo "El vacuno numero $caravana º, fue eliminado\n";
-            grabar('Madres.json', $arrayVacunos);
-            break;
-        }
-    }
 
-    if (!$encontrada) {
-        echo "**********************************************************************\n";
-        echo "No se encontró ningún vacuno con el número de caravana $caravana.\n";
-        echo "Regresando al menu Vacunos\n";
-        echo "***********************************************************************\n";
-    }
-}
-
-
-
-
-
-
-function modificarFicha($caravana, &$arrayVacunos)
-{
-    $encontrada = false;
-    foreach ($arrayVacunos as $madre) {
-        if ($madre->getCaravana() == $caravana) {
-            echo "Ingrese el nuevo texto para la ficha del vacuno con caravana nº $caravana: \n";
-            $nuevoTexto = readline();
-            $madre->setFicha($nuevoTexto);
-            $encontrada = true;
-            echo "La ficha del vacuno con caravana nº $caravana ha sido actualizada a $nuevoTexto.\n";
-            break;
-        }
-    }
-
-    if (!$encontrada) {
-        echo "No se encontró ningún vacuno con el Nº $caravana de caravana.\n";
-    }
-}
