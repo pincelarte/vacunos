@@ -15,7 +15,7 @@ class Madres
     public $edad;
     public $peso;
 
-    public function __construct($indole, $caravana, $nacimiento, $raza, $ficha)
+    public function __construct($indole, $caravana, $nacimiento, $raza, $ficha = "No definido", $peso = "No definido")
     {
 
         $this->indole = $indole;
@@ -23,6 +23,7 @@ class Madres
         $this->nacimiento = $nacimiento;
         $this->raza = $raza;
         $this->ficha = $ficha;
+        $this->peso = $peso;
     }
 
     public function getIndole()

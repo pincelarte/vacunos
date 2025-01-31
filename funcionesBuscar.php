@@ -12,6 +12,7 @@ function buscarVacuno($caravana, &$arrayVacunos)
             echo "Su raza es: " . $madre->getRaza() . "\n";
             echo "Su ficha de historial: " . $madre->getFicha() . "\n";
             echo "Edad: " . $madre->getEdad() . "\n";
+            echo "Peso: " . $madre->getPeso() . "\n";
             $encontrada = true;
             menuVacunos($campo, $arrayVacunos);
             break;
