@@ -91,3 +91,68 @@ function menuPosterior($campo, &$arrayVacunos)
             break;
     }
 }
+
+function menuVacunos($campo,  &$arrayVacunos)
+{
+
+    echo "\n";
+    echo "\n";
+    echo "MENÚ VACUNOS \n";
+    echo "---------------------\n";
+    echo "0)- VOLVER AL MENU DE INICIO \n";
+    echo "1)- TOTAL DE VACUNOS \n";
+    echo "2)- AGREGAR VACUNO \n";
+    echo "3)- QUITAR VACUNO \n";
+    echo "4)- BUSCAR VACUNO \n";
+    echo "5)- MODIFICAR FICHA\n";
+
+
+    $opción = readline();
+
+    switch ($opción) {
+        case "0":
+            echo "Volviendo al menu inicial\n";
+            menuInicio($campo, $arrayVacunos);
+            PHP_EOL;
+            break;
+
+        case "1":
+            mostrarCaravanas($campo, $arrayVacunos) . PHP_EOL;
+            PHP_EOL;
+            break;
+
+        case "2":
+            echo "VACUNOS" . PHP_EOL;
+            agregarMadre($campo, $arrayVacunos);
+            PHP_EOL;
+            break;
+
+        case "3":
+            echo "¿QUE NÚMERO DE CARAVANA TIENE EL VACUNO QUE DESEA ELIMINAR? \n";
+            $caravana = readline();
+            PHP_EOL;
+            eliminarVacuno($caravana, $arrayVacunos);
+            menuVacunos($campo, $arrayVacunos);
+            PHP_EOL;
+            break;
+        case "4":
+            echo "INGRESE LA CARAVANA DEL VACUNO QUE DESEA VER.\n";
+            $caravana = readline();
+            buscarVacuno($caravana, $arrayVacunos);
+            PHP_EOL;
+            break;
+        case "5":
+            echo "¿QUE FICHA DESEA MODIFICAR? INGRESE LA CARAVANA.\n";
+            $caravana = readline() . PHP_EOL;
+            modificarFicha($caravana, $arrayVacunos) . PHP_EOL;
+            break;
+
+
+        default:
+            echo "Opción inválida, por favor seleccione una de las opciones mostradas \n";
+            echo "_________________________________" . PHP_EOL;
+            menuVacunos($campo, $arrayVacunos);
+            PHP_EOL;
+            break;
+    }
+}
